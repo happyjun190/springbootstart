@@ -1,27 +1,40 @@
 package com.ysb.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static springfox.documentation.builders.PathSelectors.regex;
-
 /**
- * Created by wushenjun on 2017/7/19.
+ * Created by XuJijun on 2017-02-06.
  */
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
 
     @Bean
-    public Docket swaggerSpringMvcPlugin() {
-        ApiInfo apiInfo = new ApiInfo("sample of springboot", "sample of springboot", null, null, null, null, null);
-        Docket docket = new Docket(DocumentationType.SWAGGER_2).select().paths(regex("/user/.*")).build()
-                .apiInfo(apiInfo).useDefaultResponseMessages(false);
-        return docket;
+    public Docket createRestApi(){
+        return  new Docket(DocumentationType.SWAGGER_2)
+                .enable(true)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ysb"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build();
     }
 
+    private ApiInfo apiInfo(){
+        return new ApiInfoBuilder()
+                .title("swagger api title")
+                .description("swagger description")
+                .version("v1.0.0")
+                .build();
+    }
 }
