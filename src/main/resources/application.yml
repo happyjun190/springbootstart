@@ -1,0 +1,56 @@
+server:
+  port: 60018
+  compression:
+    enabled: true
+    mime-types:
+      - text/html
+      - text/plain
+      - text/css
+      - application/json
+      - application/javascript
+#服务监控用
+management:
+  port: 60028
+  security:
+    enabled: false
+info:
+  app:
+    name: "@project.name@" #从pom.xml中获取
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@project.parent.version@"
+
+# 开发环境默认的profile，其他环境需要指定启动参数，比如：java -jar springbootstart.jar --spring.profiles.active=prod
+spring:
+  profiles:
+    active: dev
+    include:
+      - sbs
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.7.11.59:1521:gftw
+    username: gftw
+    password: gftwdev!@#
+    hikari:
+          maxLifetime: 1765000 #一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上
+          maximumPoolSize: 15 #连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+
+---
+# 开发环境配置
+spring:
+  profiles: dev
+  redis:
+    cluster:
+      nodes:
+        10.7.11.51:6490
+        10.7.11.51:6491
+        10.7.11.51:6492
+        10.7.11.51:6493
+        10.7.11.51:6494
+        10.7.11.51:6495
+
+---
+spring:
+  profiles: prod
