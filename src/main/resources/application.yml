@@ -29,7 +29,7 @@ ysb:
       base-package: com.ysb
       api-info:
         version: 2.0
-        title: scm服务Api文档
+        title: 项目Api文档
         description: API文档详细描述：这里是项目接口文档。
         contact:
           name: wushenjun
