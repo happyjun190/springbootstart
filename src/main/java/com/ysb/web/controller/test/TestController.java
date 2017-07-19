@@ -26,7 +26,7 @@ public class TestController {
     @Autowired
     private ITestService testService;
 
-    @RequestMapping(value = "/getAllTestData/{version}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllTestData/{version}", method = RequestMethod.POST)
     @ApiOperation(value = "example:获取测试数据")
     public JsonResultOut getAllTestData(HttpServletRequest request,
                                            @ApiParam(value = "版本号:v100", required = true) @PathVariable("version") String version,
