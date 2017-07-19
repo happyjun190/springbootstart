@@ -33,7 +33,30 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 支持 @ConfigurationProperties 注解 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- start of log related -->
@@ -70,7 +93,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency><!--maven 私服 oracle 依赖(maven中央库没有对oracle支持，只能使用私服)-->
@@ -78,7 +101,6 @@
             <artifactId>ojdbc6</artifactId>
             <version>17.03.04</version>
         </dependency>
-
 
         <dependency>
             <groupId>io.springfox</groupId>
@@ -91,8 +113,6 @@
             <version>2.7.0</version>
         </dependency>
 
-
-
         <!-- Begin of DB related -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -104,6 +124,14 @@
             <artifactId>HikariCP</artifactId>
         </dependency>
         <!-- End of DB related -->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+
 
     </dependencies>
 

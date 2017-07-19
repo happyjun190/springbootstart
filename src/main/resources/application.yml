@@ -1,5 +1,6 @@
 server:
   port: 60018
+  context-path: /sbs-api/ #统一为访问的url加上一个前缀，方便nginx路由，
   compression:
     enabled: true
     mime-types:
@@ -20,12 +21,25 @@ info:
     version: "@project.version@"
     spring-boot-version: "@project.parent.version@"
 
+ysb:
+  boot:
+    swagger2: # 下面配置都可以不用，需要时可以配一下env
+      env: dev, test, prod #控制哪个profile启用
+      enable: true
+      base-package: com.ysb
+      api-info:
+        version: 2.0
+        title: scm服务Api文档
+        description: API文档详细描述：这里是项目接口文档。
+        contact:
+          name: wushenjun
+          url: http://www.baidu.cn
+          email: wushenjun@ysbang.cn
+
 # 开发环境默认的profile，其他环境需要指定启动参数，比如：java -jar springbootstart.jar --spring.profiles.active=prod
 spring:
   profiles:
     active: dev
-    include:
-      - sbs
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@10.7.11.59:1521:gftw
@@ -44,13 +58,22 @@ spring:
   redis:
     cluster:
       nodes:
-        10.7.11.51:6490
-        10.7.11.51:6491
-        10.7.11.51:6492
-        10.7.11.51:6493
-        10.7.11.51:6494
-        10.7.11.51:6495
+        - 10.7.11.51:6490
+        - 10.7.11.51:6491
+        - 10.7.11.51:6492
+        - 10.7.11.51:6493
+        - 10.7.11.51:6494
+        - 10.7.11.51:6495
 
 ---
 spring:
   profiles: prod
+  redis:
+    cluster:
+      nodes:
+        - 10.7.11.51:6490
+        - 10.7.11.51:6491
+        - 10.7.11.51:6492
+        - 10.7.11.51:6493
+        - 10.7.11.51:6494
+        - 10.7.11.51:6495
