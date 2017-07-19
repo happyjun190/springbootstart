@@ -3,14 +3,14 @@
 <mapper namespace="com.ysb.dao.test.TestDAO">
     <!--测试表字段-->
     <sql id="testColumns">
-        t1.id,
-        t1.name,
-        t1.phone,
-        t1.address,
-        t1.company,
-        t1.note,
-        t1.ctime,
-        t1.mtime
+        t1."id",
+        t1."name",
+        t1."phone",
+        t1."address",
+        t1."company",
+        t1."note",
+        t1."ctime",
+        t1."mtime"
     </sql>
 
 
@@ -18,7 +18,7 @@
     <select id="getAllTestData" resultType="com.ysb.model.test.TabTest">
         SELECT
           <include refid="testColumns"/>
-        FROM ts_test t1
+        FROM "GFTW"."ts_test" t1
     </select>
 
 </mapper>
