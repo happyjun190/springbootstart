@@ -1,5 +1,7 @@
 package com.ysb.config;
 
+import com.ysb.service.rabbitmq.IMessageDealService;
+import com.ysb.service.rabbitmq.RabbitConsumer;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
@@ -9,6 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +22,9 @@ import java.util.Map;
 @Configuration
 public class RabbitMQConfiguration {
 
+    @Autowired
+    private IMessageDealService messageDealService;
+
     @Value("${rabbitmq.host}")
     private String host;
     @Value("${rabbitmq.username}")
@@ -26,7 +32,7 @@ public class RabbitMQConfiguration {
     @Value("${rabbitmq.password}")
     private String password;
 
-    private static final String queueName = "websocket-0";
+    public static final String queueName = "websocket-0";
 
     private int concurrentConsumers = 5;// 并发consumer数量
     private int maxConcurrentConsumers = 10;// // 最大consumer数量
@@ -51,12 +57,12 @@ public class RabbitMQConfiguration {
      * @param connectionFactory
      * @return
      */
-    /*@Bean
+    @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
-        //container.setMessageListener(new Receiver(smsService));
+        container.setMessageListener(new RabbitConsumer(messageDealService));
         container.setConcurrentConsumers(concurrentConsumers);// 并发consumer数量
         container.setMaxConcurrentConsumers(maxConcurrentConsumers);// 最大consumer数量
 
@@ -65,7 +71,7 @@ public class RabbitMQConfiguration {
 
         container.setAcknowledgeMode(AcknowledgeMode.MANUAL);// 设置ack手动
         return container;
-    }*/
+    }
 
     /**
      * 返回队列连接
@@ -76,7 +82,7 @@ public class RabbitMQConfiguration {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, 5672);
         connectionFactory.setUsername(username);
         connectionFactory.setPassword(password);
-        //connectionFactory.setVirtualHost("/");
+        connectionFactory.setVirtualHost("/");
         connectionFactory.setChannelCacheSize(5);
         return connectionFactory;
     }
