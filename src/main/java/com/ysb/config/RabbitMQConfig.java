@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class RabbitMQConfiguration {
+public class RabbitMQConfig {
 
     @Autowired
     private IMessageDealService messageDealService;

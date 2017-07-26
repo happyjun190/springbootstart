@@ -1,6 +1,6 @@
 package com.ysb.service.rabbitmq;
 
-import com.ysb.config.RabbitMQConfiguration;
+import com.ysb.config.RabbitMQConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
@@ -22,7 +22,7 @@ public class MessageSendSchedule {
     @Scheduled(fixedDelay = 1 * 1000)
     public void scheduleSendMessageToRabbit() {
         try {
-            rabbitTemplate.convertAndSend(RabbitMQConfiguration.queueName, (Object) ("Message " + i++), new MessagePostProcessor() {
+            rabbitTemplate.convertAndSend(RabbitMQConfig.queueName, (Object) ("Message " + i++), new MessagePostProcessor() {
                 @Override
                 public Message postProcessMessage(Message message) throws AmqpException {
                     message.getMessageProperties().setPriority(new Integer(1));
