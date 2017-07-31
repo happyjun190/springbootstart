@@ -107,6 +107,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <dependency><!--maven 私服 oracle 依赖(maven中央库没有对oracle支持，只能使用私服)-->
             <groupId>com.oracle.jdbc</groupId>
             <artifactId>ojdbc6</artifactId>
