@@ -1,7 +1,5 @@
 package com.ysb.config;
 
-import com.ysb.config.AutoSwagger2Condition;
-import com.ysb.config.Swagger2Properties;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
